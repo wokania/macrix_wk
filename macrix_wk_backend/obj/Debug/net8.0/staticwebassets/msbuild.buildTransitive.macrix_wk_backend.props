@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\macrix_wk_backend.props" />
+</Project>

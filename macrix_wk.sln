@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "macrix_wk_backend", "macrix_wk_backend\macrix_wk_backend.csproj", "{B119D02B-9049-4BCD-8D7F-F6F16E0E01DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "macrix_wk_frontend", "macrix_wk_frontend\macrix_wk_frontend.csproj", "{6FF24CE5-ECED-42D3-9044-7A75324DCA09}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B119D02B-9049-4BCD-8D7F-F6F16E0E01DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B119D02B-9049-4BCD-8D7F-F6F16E0E01DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B119D02B-9049-4BCD-8D7F-F6F16E0E01DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B119D02B-9049-4BCD-8D7F-F6F16E0E01DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FF24CE5-ECED-42D3-9044-7A75324DCA09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FF24CE5-ECED-42D3-9044-7A75324DCA09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FF24CE5-ECED-42D3-9044-7A75324DCA09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FF24CE5-ECED-42D3-9044-7A75324DCA09}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

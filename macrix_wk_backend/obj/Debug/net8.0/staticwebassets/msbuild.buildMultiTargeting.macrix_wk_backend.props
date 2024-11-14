@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\macrix_wk_backend.props" />
+</Project>
