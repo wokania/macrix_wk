@@ -11,6 +11,6 @@ public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-    public DbSet<PersonModel> Person { get; set; }
-    public DbSet<AddressModel> AddresModels { get; set; }
+    public required DbSet<PersonModel> Persons { get; set; }
+    public required DbSet<AddressModel> Addresses { get; set; }
 }

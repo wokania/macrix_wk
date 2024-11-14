@@ -15,9 +15,18 @@ public class PersonModel
     [Required]
     public required string LastName { get; set; }
     [Required]
-    public required AddressModel Addres { get; set; }
+    public required AddressModel Address { get; set; }
     [Required]
     public DateTime DateOfBirth { get; set; }
-    [ReadOnly(true)]//TODO - czy to mogę ustawić żeby jakoś automatycznie się wyliczało tutaj czy lepiej w metodzie???
-    public int Age { get; set; }
+    [ReadOnly(true)]
+    [NotMapped]
+    public int Age => CalculateAge(DateOfBirth);
+
+    private int CalculateAge(DateTime dateOfBirth)
+    {
+        var today = DateTime.Today;
+        var age = today.Year - dateOfBirth.Year;
+        if (dateOfBirth.Date > today.AddYears(-age)) age--;
+        return age;
+    }
 }
