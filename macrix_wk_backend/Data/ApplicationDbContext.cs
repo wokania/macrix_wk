@@ -1,7 +1,3 @@
-using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using macrix_wk_backend.Models;
 using Microsoft.EntityFrameworkCore;
 

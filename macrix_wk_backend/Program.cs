@@ -1,4 +1,6 @@
 using macrix_wk_backend.Data;
+using macrix_wk_backend.Interfaces;
+using macrix_wk_backend.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,9 +10,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+
+//Registering services
+builder.Services.AddScoped<IPersonService, PersonService>();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddRazorPages();
+
+//Adding authorization with setting policies
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("DefaultPolicy", policy =>

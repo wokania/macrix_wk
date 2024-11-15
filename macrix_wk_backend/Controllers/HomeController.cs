@@ -1,7 +1,6 @@
-using macrix_wk_backend.Data;
+using macrix_wk_backend.Interfaces;
 using macrix_wk_backend.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace macrix_wk_backend.Controllers
 {
@@ -9,77 +8,64 @@ namespace macrix_wk_backend.Controllers
     [ApiController]
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IPersonService _personService;
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(IPersonService personService)
         {
-            _context = context;
+            _personService = personService;
         }
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PersonModel>>> GetAllPersons()
         {
-            return await _context.Persons.ToListAsync();
+            var persons = await _personService.GetAllPersonsAsync();
+            return Ok(persons);
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PersonModel>> GetPersonById(long id)
+        {
+            var person = await _personService.GetPersonByIdAsync(id);
+            if (person == null)
+            {
+                return NotFound();
+            }
+            return Ok(person);
         }
         [HttpPost]
-        public async Task<ActionResult> AddNewPerson(PersonModel model)
+        public async Task<ActionResult> AddPersonAsync(PersonModel model)
         {
-            await _context.Persons.AddAsync(model);
-            await _context.SaveChangesAsync();
+            await _personService.AddPersonAsync(model);
             return CreatedAtAction(nameof(GetPersonById), new { id = model.Id }, model);
 
         }
         [HttpPut("{id}")]
         public async Task<ActionResult<PersonModel>> UpdatePerson(long id, PersonModel model)
         {
-            if (id != model.Id)
+            try
+            {
+                await _personService.UpdatePersonAsync(id, model);
+            }
+            catch (ArgumentException)
             {
                 return BadRequest();
             }
-            _context.Entry(model).State = EntityState.Modified;
-
-            try
+            catch (KeyNotFoundException)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PersonExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return NotFound();
             }
             return NoContent();
         }
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeletePerson(long id)
         {
-            var person = await _context.Persons.FindAsync(id);
-            if (person == null)
+            try
+            {
+                await _personService.DeletePersonAsync(id);
+            }
+            catch (KeyNotFoundException)
             {
                 return NotFound();
             }
-            _context.Persons.Remove(person);
-            await _context.SaveChangesAsync();
             return NoContent();
-        }
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PersonModel>> GetPersonById(long id)
-        {
-            var person = await _context.Persons.FindAsync(id);
-            if (person == null)
-            {
-                return NotFound();
-            }
-            return person;
-        }
-
-        private bool PersonExists(long id)
-        {
-            return _context.Persons.Any(e => e.Id == id);
         }
     }
 }
