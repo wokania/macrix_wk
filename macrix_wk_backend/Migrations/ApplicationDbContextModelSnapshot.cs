@@ -51,7 +51,7 @@ namespace macrix_wk_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AddresModels");
+                    b.ToTable("Addresses");
                 });
 
             modelBuilder.Entity("macrix_wk_backend.Models.PersonModel", b =>
@@ -62,11 +62,8 @@ namespace macrix_wk_backend.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("AddresId")
+                    b.Property<long>("AddressId")
                         .HasColumnType("bigint");
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
@@ -81,20 +78,20 @@ namespace macrix_wk_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddresId");
+                    b.HasIndex("AddressId");
 
-                    b.ToTable("Person");
+                    b.ToTable("Persons");
                 });
 
             modelBuilder.Entity("macrix_wk_backend.Models.PersonModel", b =>
                 {
-                    b.HasOne("macrix_wk_backend.Models.AddressModel", "Addres")
+                    b.HasOne("macrix_wk_backend.Models.AddressModel", "Address")
                         .WithMany()
-                        .HasForeignKey("AddresId")
+                        .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Addres");
+                    b.Navigation("Address");
                 });
 #pragma warning restore 612, 618
         }

@@ -10,12 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
-
+AppDomain.CurrentDomain.SetData("DataDirectory", Path.Combine(Directory.GetCurrentDirectory(), "db"));
 //Registering services
 builder.Services.AddScoped<IPersonService, PersonService>();
-
+var dataDirectory = Path.Combine(AppDomain.CurrentDomain.GetData("DataDirectory").ToString(), "macrixdb.mdf");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
-    builder.Configuration.GetConnectionString("DefaultConnection")));
+    builder.Configuration.GetConnectionString("DefaultConnection").Replace("|DataDirectory|", dataDirectory)));
 
 builder.Services.AddRazorPages();
 

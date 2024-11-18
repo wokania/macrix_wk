@@ -167,3 +167,4 @@ C:\Users\wkania\macrix_wk\macrix_wk_backend\obj\Debug\net8.0\refint\macrix_wk_ba
 C:\Users\wkania\macrix_wk\macrix_wk_backend\obj\Debug\net8.0\macrix_wk_backend.pdb
 C:\Users\wkania\macrix_wk\macrix_wk_backend\obj\Debug\net8.0\macrix_wk_backend.genruntimeconfig.cache
 C:\Users\wkania\macrix_wk\macrix_wk_backend\obj\Debug\net8.0\ref\macrix_wk_backend.dll
+C:\Users\wkania\macrix_wk\macrix_wk_backend\obj\Debug\net8.0\macrix_wk_backend.sourcelink.json

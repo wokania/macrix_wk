@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Folder Include="db\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

@@ -5,7 +5,9 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "macrix_wk_backend", "macrix_wk_backend\macrix_wk_backend.csproj", "{B119D02B-9049-4BCD-8D7F-F6F16E0E01DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "macrix_wk_frontend", "macrix_wk_frontend\macrix_wk_frontend.csproj", "{6FF24CE5-ECED-42D3-9044-7A75324DCA09}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "macrix_wk_UI", "macrix_wk_UI\macrix_wk_UI.csproj", "{61C8E7F7-5CDE-4858-9EBB-509A4024FEDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "macrix_wk.Tests", "macrix_wk.Tests\macrix_wk.Tests.csproj", "{B47DF7D7-2AB3-473D-B682-74D2AECA5975}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +26,13 @@ Global
 		{6FF24CE5-ECED-42D3-9044-7A75324DCA09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FF24CE5-ECED-42D3-9044-7A75324DCA09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FF24CE5-ECED-42D3-9044-7A75324DCA09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61C8E7F7-5CDE-4858-9EBB-509A4024FEDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61C8E7F7-5CDE-4858-9EBB-509A4024FEDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61C8E7F7-5CDE-4858-9EBB-509A4024FEDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61C8E7F7-5CDE-4858-9EBB-509A4024FEDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B47DF7D7-2AB3-473D-B682-74D2AECA5975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B47DF7D7-2AB3-473D-B682-74D2AECA5975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B47DF7D7-2AB3-473D-B682-74D2AECA5975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B47DF7D7-2AB3-473D-B682-74D2AECA5975}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

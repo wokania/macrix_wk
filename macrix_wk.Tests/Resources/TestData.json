@@ -1,0 +1,78 @@
+[
+    {
+      "Id": 1,
+      "FirstName": "Bob",
+      "LastName": "Marley",
+      "Address": {
+        "Id": 1,
+        "Street": "Hope Road",
+        "HouseNo": "56",
+        "ApartmentNo": null,
+        "PostalCode": "00000",
+        "Town": "Kingston",
+        "PhoneNumber": "+1-876-555-1234"
+      },
+      "DateOfBirth": "1945-02-06T00:00:00"
+    },
+    {
+      "Id": 2,
+      "FirstName": "Peter",
+      "LastName": "Tosh",
+      "Address": {
+        "Id": 2,
+        "Street": "Westmoreland",
+        "HouseNo": "12",
+        "ApartmentNo": null,
+        "PostalCode": "00000",
+        "Town": "Grange Hill",
+        "PhoneNumber": "+1-876-555-5678"
+      },
+      "DateOfBirth": "1944-10-19T00:00:00"
+    },
+    {
+      "Id": 3,
+      "FirstName": "Bunny",
+      "LastName": "Wailer",
+      "Address": {
+        "Id": 3,
+        "Street": "Trench Town",
+        "HouseNo": "34",
+        "ApartmentNo": null,
+        "PostalCode": "00000",
+        "Town": "Kingston",
+        "PhoneNumber": "+1-876-555-9101"
+      },
+      "DateOfBirth": "1947-04-10T00:00:00"
+    },
+    {
+      "Id": 4,
+      "FirstName": "Jimmy",
+      "LastName": "Cliff",
+      "Address": {
+        "Id": 4,
+        "Street": "Somerset Lane",
+        "HouseNo": "22",
+        "ApartmentNo": null,
+        "PostalCode": "00000",
+        "Town": "St. James",
+        "PhoneNumber": "+1-876-555-2345"
+      },
+      "DateOfBirth": "1948-04-01T00:00:00"
+    },
+    {
+      "Id": 5,
+      "FirstName": "Gregory",
+      "LastName": "Isaacs",
+      "Address": {
+        "Id": 5,
+        "Street": "Denham Town",
+        "HouseNo": "10",
+        "ApartmentNo": null,
+        "PostalCode": "00000",
+        "Town": "Kingston",
+        "PhoneNumber": "+1-876-555-6789"
+      },
+      "DateOfBirth": "1951-07-15T00:00:00"
+    }
+  ]
+  

@@ -1,0 +1,5 @@
+{
+    "dataworkspace.excludedProjects": [
+        "macrix_wk_backend/db/macrix/macrix.sqlproj"
+    ]
+}

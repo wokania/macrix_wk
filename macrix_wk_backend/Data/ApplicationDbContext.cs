@@ -5,8 +5,10 @@ namespace macrix_wk_backend.Data;
 
 public class ApplicationDbContext : DbContext
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-    public required DbSet<PersonModel> Persons { get; set; }
-    public required DbSet<AddressModel> Addresses { get; set; }
+    public virtual DbSet<PersonModel> Persons { get; set; }
+    public virtual DbSet<AddressModel> Addresses { get; set; }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+    {
+    }
 }
