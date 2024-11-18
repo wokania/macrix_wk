@@ -4,28 +4,52 @@ public class Program
 {
     static async Task Main(string[] args)
     {
-        var apiService = new ApiService();
-        await DisplayGrid(apiService);
+        ApiService apiService = new ApiService();
         while (true)
         {
-            Console.WriteLine("Press any key to refresh the grid...");
+            Console.Clear();
+            await DisplayMenu();
+            Console.WriteLine("\nPress any key to refresh the grid...\n");
             Console.ReadKey();
-            await DisplayGrid(apiService);
         }
     }
 
-    private static async Task DisplayGrid(ApiService apiService)
+    private static async Task DisplayMenu()
     {
-        var persons = await apiService.GetAllPersonsAsync();
-        Console.Clear();
-        Console.WriteLine("Id/First Name/Last Name/Street Name/House Number/Apartment Number/Postal Code/Town/Phone Number/Date of Birth/Age");
-        Console.WriteLine("------------------------------------------------------------------------------------------------------");
+        Console.WriteLine("Choose an option:");
+        Console.WriteLine("1 to display all persons.");
+        Console.WriteLine("2 to display person with specific ID.");
+        Console.WriteLine("3 to add Person.");
+        Console.WriteLine("4 to update Person with specific ID.");
+        Console.WriteLine("5 to delete Person with specific ID.");
+        Console.Write("Option: ");
+        var option = Console.ReadLine();
 
-        foreach (var person in persons)
+        switch (option)
         {
-            Console.WriteLine($@"{person.Id}\t{person.FirstName}\t{person.Id}\t{person.Address.Street}\t{person.Address.HouseNo}
-                                \t{person.Address.ApartmentNo}\t{person.Address.PostalCode}\t{person.Address.Town}
-                                \t{person.Address.PhoneNumber}\t{person.DateOfBirth}\t{person.Age}");
+            case "1":
+                await ApiService.GetAllPersonsAsync();
+                break;
+
+            case "2":
+                await ApiService.GetPersonByIdAsync();
+                break;
+
+            case "3":
+                await ApiService.AddPersonAsync();
+                break;
+
+            case "4":
+                await ApiService.UpdatePersonAsync();
+                break;
+
+            case "5":
+                await ApiService.DeletePersonAsync();
+                break;
+
+            default:
+                Console.WriteLine($"Invalid option {option}");
+                break;
         }
     }
 }
