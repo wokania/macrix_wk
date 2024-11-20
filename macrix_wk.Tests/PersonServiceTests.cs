@@ -2,13 +2,14 @@ using macrix_wk_backend.Data;
 using macrix_wk_backend.Models;
 using macrix_wk_backend.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
 using Newtonsoft.Json;
 
 [TestFixture]
 public class PersonServiceTests
 {
-   
+
     private Mock<ApplicationDbContext> _mockContext;
     private PersonService _service;
     private Mock<DbSet<PersonModel>> _mockDbSet;
@@ -22,33 +23,38 @@ public class PersonServiceTests
         var options = new DbContextOptionsBuilder<ApplicationDbContext>()
             .UseInMemoryDatabase(databaseName: "TestDatabase")
             .Options;
-        
+
         _mockContext = new Mock<ApplicationDbContext>(options);
         _mockContext.Setup(c => c.Persons).Returns(_mockDbSet.Object);
         _service = new PersonService(_mockContext.Object);
-        
+
     }
 
     [Test]
-    public async Task GetAllPersonsAsync_ReturnsAllPersons()
+    public async Task GetAllPersonsAsync_ShouldReturnAllPersons()
     {
         // Arrange
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseInMemoryDatabase("TestDatabase_GetAllPersons")
+            .Options;
+
+        using var context = new ApplicationDbContext(options);
+
         var persons = LoadTestData();
 
-        _mockContext.Setup(c => c.Persons).Returns(_mockDbSet.Object);
+        context.Persons.AddRange(persons);
+        await context.SaveChangesAsync();
+
+        var service = new PersonService(context);
 
         // Act
-        var result = await _service.GetAllPersonsAsync();
+        var result = await service.GetAllPersonsAsync();
 
         // Assert
-        Assert.That(result.Count(), Is.EqualTo(2));
-        foreach (var person in persons)
-        {
-            foreach (var element in result)
-            {
-                Assert.That(element.FirstName, Is.EqualTo(person.FirstName));
-            }
-        }
+        Assert.NotNull(result);
+        Assert.That(result.Count(), Is.EqualTo(persons.Count));
+        Assert.IsTrue(result.Any(p => p.FirstName == "Bob" && p.LastName == "Marley"));
+        Assert.IsTrue(result.Any(p => p.FirstName == "Peter" && p.LastName == "Tosh"));
     }
 
     [Test]
@@ -71,17 +77,33 @@ public class PersonServiceTests
     public async Task UpdatePersonAsync_UpdatesPerson()
     {
         // Arrange
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseInMemoryDatabase("TestDatabase")
+            .Options;
+
+        using var context = new ApplicationDbContext(options);
+        
         var person = LoadTestData().First();
 
-        _mockContext.Setup(m => m.Persons).Returns(_mockDbSet.Object);
-        _mockContext.Setup(m => m.Entry(person).State == EntityState.Modified);
+        context.Persons.Add(person);
+        await context.SaveChangesAsync();
 
+        var service = new PersonService(context);
+
+        var updatedPerson = person;
+        updatedPerson.FirstName = "Robert Nesta";
+        
         // Act
-        await _service.UpdatePersonAsync(1, person);
+        await service.UpdatePersonAsync(person.Id, updatedPerson);
 
         // Assert
-        _mockContext.Verify(m => m.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+        var updatedEntity = await context.Persons.FindAsync(person.Id);
+
+        Assert.NotNull(updatedEntity);
+        Assert.That(updatedEntity.FirstName, Is.EqualTo("Robert Nesta"));
+        Assert.That(updatedEntity.LastName, Is.EqualTo("Marley"));
     }
+
 
     [Test]
     public async Task DeletePersonAsync_DeletesPerson()
@@ -89,11 +111,11 @@ public class PersonServiceTests
         // Arrange
         var person = LoadTestData().First();
 
-        _mockDbSet.Setup(m => m.FindAsync(1)).ReturnsAsync(person);
+        _mockDbSet.Setup(m => m.FindAsync(person.Id)).ReturnsAsync(person);
         _mockContext.Setup(m => m.Persons).Returns(_mockDbSet.Object);
 
         // Act
-        await _service.DeletePersonAsync(1);
+        await _service.DeletePersonAsync(person.Id);
 
         // Assert
         _mockDbSet.Verify(m => m.Remove(person), Times.Once);
@@ -124,19 +146,13 @@ public class PersonServiceTests
 
         return result;
     }
-    private void SeedDatabase()
+    private Mock<DbSet<T>> CreateMockDbSet<T>(IQueryable<T> data) where T : class
     {
-        var persons = LoadTestData();
-        _mockContext.Object.Persons.AddRange(persons);
-        _mockContext.Object.SaveChanges();
-    }
-    private Mock<DbSet<PersonModel>> CreateMockDbSet(IQueryable<PersonModel> data)
-    {
-        var mockSet = new Mock<DbSet<PersonModel>>();
-        mockSet.As<IQueryable<PersonModel>>().Setup(m => m.Provider).Returns(data.Provider);
-        mockSet.As<IQueryable<PersonModel>>().Setup(m => m.Expression).Returns(data.Expression);
-        mockSet.As<IQueryable<PersonModel>>().Setup(m => m.ElementType).Returns(data.ElementType);
-        mockSet.As<IQueryable<PersonModel>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+        var mockSet = new Mock<DbSet<T>>();
+        mockSet.As<IQueryable<T>>().Setup(m => m.Provider).Returns(data.Provider);
+        mockSet.As<IQueryable<T>>().Setup(m => m.Expression).Returns(data.Expression);
+        mockSet.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(data.ElementType);
+        mockSet.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
         return mockSet;
     }
 }

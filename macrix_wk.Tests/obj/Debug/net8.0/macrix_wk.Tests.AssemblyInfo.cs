@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("macrix_wk.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a7b303594fc3b8048daa2b12f9782b91572caf6b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+40bfef622d414178bf90ef43cafdb2a3185db7b4")]
 [assembly: System.Reflection.AssemblyProductAttribute("macrix_wk.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("macrix_wk.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

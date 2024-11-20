@@ -16,9 +16,14 @@ public class PersonService : IPersonService
     {
         return await _context.Persons.ToListAsync();
     }
-    public Task<PersonModel> GetPersonByIdAsync(long id)
+    public async Task<PersonModel> GetPersonByIdAsync(long id)
     {
-        throw new NotImplementedException();
+        var person = await _context.Persons.FindAsync(id);
+        if (person == null)
+        {
+            throw new KeyNotFoundException($"Person with id {id} not found.");
+        }
+        return person;
     }
     public async Task AddPersonAsync(PersonModel model)
     {
@@ -32,7 +37,15 @@ public class PersonService : IPersonService
             throw new ArgumentException($"{id} mismatch.");
         }
 
-        _context.Entry(model).State = EntityState.Modified;
+        var existingPerson = await _context.Persons.FindAsync(id);
+
+        if (existingPerson == null)
+        {
+            throw new KeyNotFoundException($"Person with {id} not found.");
+        }
+
+        _context.Entry(existingPerson).CurrentValues.SetValues(model);
+        _context.Entry(existingPerson).State = EntityState.Modified;
 
         try
         {

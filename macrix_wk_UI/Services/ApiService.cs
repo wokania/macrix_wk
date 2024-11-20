@@ -1,7 +1,5 @@
-using System.Net;
 using System.Net.Http.Json;
 using macrix_wk_backend.Models;
-using Newtonsoft.Json;
 
 namespace macrix_wk_UI.Services;
 
